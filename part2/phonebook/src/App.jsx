@@ -1,25 +1,31 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
-  ]) 
-  const [newName, setNewName] = useState('')
+  const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
+  const [newName, setNewName] = useState("");
 
   const addPerson = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const personObject = {
-      name: newName
-    }
+      name: newName,
+    };
 
-    setPersons(persons.concat(personObject))
-    setNewName('')
-  }
+    const nameFound = persons.find(
+      (person) => person.name.toLowerCase() === personObject.name.toLowerCase(),
+    );
+    if (nameFound) {
+      alert(`${personObject.name} is already in the phonebook.`);
+    } else {
+      setPersons(persons.concat(personObject));
+      setNewName("");
+    }
+  };
 
   const handleNameChange = (event) => {
-    console.log(event.target.value)
-    setNewName(event.target.value)
-  }
+    console.log(event.target.value);
+    setNewName(event.target.value);
+  };
+
 
   return (
     <div>
@@ -39,7 +45,7 @@ const App = () => {
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
